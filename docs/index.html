@@ -7,10 +7,16 @@
   <meta name="description" content="Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-repairing MCP servers across Claude Desktop, Cursor, Antigravity, and Cline. Created by AJAYMYTH (Javali Ajayakumar).">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
   
-  <!-- Fonts -->
+  <!-- Bold Modern Typography & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 
   <style>
     :root {
@@ -18,43 +24,43 @@
       --color-primary: #d97757;
       --color-primary-hover: #e58a6d;
       --color-primary-active: #c56546;
-      --color-primary-glow: rgba(217, 119, 87, 0.2);
+      --color-primary-glow: rgba(217, 119, 87, 0.25);
       
       /* Dark Theme Backgrounds & Canvas */
-      --color-canvas: #141413;
-      --color-canvas-subtle: #191816;
-      --color-surface-soft: #191816;
-      --color-surface-card: #1d1c1a;
-      --color-surface-card-hover: #242220;
-      --color-surface-cream-strong: #2a2825;
-      --color-surface-dark: #0e0d0c;
+      --color-canvas: #121110;
+      --color-canvas-subtle: #181715;
+      --color-surface-soft: #181715;
+      --color-surface-card: #1c1b18;
+      --color-surface-card-hover: #24221f;
+      --color-surface-cream-strong: #2c2926;
+      --color-surface-dark: #0c0b0a;
       --color-surface-dark-elevated: #1a1917;
       --color-surface-dark-soft: #141312;
 
       /* Hairlines & Borders */
       --color-hairline: rgba(255, 255, 255, 0.08);
       --color-hairline-soft: rgba(255, 255, 255, 0.05);
-      --color-hairline-strong: rgba(255, 255, 255, 0.14);
+      --color-hairline-strong: rgba(255, 255, 255, 0.16);
 
-      /* Typography Tokens (Dark Theme) */
-      --color-ink: #faf9f5;
-      --color-body: #cbc6bd;
-      --color-body-strong: #ede8df;
-      --color-muted: #969289;
-      --color-muted-soft: #6e6b63;
+      /* High-Contrast Bold Typography Tokens */
+      --color-ink: #ffffff;
+      --color-body: #d2cdc4;
+      --color-body-strong: #f4f0e8;
+      --color-muted: #9c978e;
+      --color-muted-soft: #706c64;
 
       /* Interactive & ANSI Colors */
       --color-on-primary: #ffffff;
-      --color-on-dark: #faf9f5;
-      --color-on-dark-soft: #9c9890;
-      --color-accent-teal: #5db8a6;
-      --color-accent-amber: #e8a55a;
-      --color-success: #5db872;
-      --color-warning: #e0ac2b;
-      --color-error: #e05858;
+      --color-on-dark: #ffffff;
+      --color-on-dark-soft: #a09d96;
+      --color-accent-teal: #4ecdc4;
+      --color-accent-amber: #f9c74f;
+      --color-success: #52b788;
+      --color-warning: #f8961e;
+      --color-error: #f94144;
 
-      /* Font Stacks */
-      --font-display: "Cormorant Garamond", Georgia, serif;
+      /* Bold Font Stacks */
+      --font-display: "Plus Jakarta Sans", "Inter", -apple-system, sans-serif;
       --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
 
@@ -62,8 +68,8 @@
       --rounded-xs: 4px;
       --rounded-sm: 6px;
       --rounded-md: 8px;
-      --rounded-lg: 12px;
-      --rounded-xl: 16px;
+      --rounded-lg: 14px;
+      --rounded-xl: 18px;
       --rounded-pill: 9999px;
 
       /* Spacing */
@@ -73,7 +79,7 @@
       --spacing-lg: 24px;
       --spacing-xl: 32px;
       --spacing-xxl: 48px;
-      --spacing-section: 96px;
+      --spacing-section: 104px;
     }
 
     * {
@@ -87,23 +93,23 @@
       color: var(--color-body);
       font-family: var(--font-sans);
       font-size: 16px;
-      line-height: 1.55;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Ambient Hero Glow */
+    /* Ambient Hero Glow Gradient */
     body::before {
       content: "";
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 1000px;
-      height: 500px;
-      background: radial-gradient(ellipse at 50% -20%, rgba(217, 119, 87, 0.12) 0%, rgba(20, 20, 19, 0) 70%);
+      width: 1100px;
+      height: 560px;
+      background: radial-gradient(ellipse at 50% -10%, rgba(217, 119, 87, 0.18) 0%, rgba(18, 17, 16, 0) 72%);
       pointer-events: none;
       z-index: 0;
     }
@@ -115,7 +121,7 @@
 
     /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1220px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
@@ -124,10 +130,10 @@
 
     /* Top Navigation */
     .top-nav {
-      height: 64px;
-      background-color: rgba(20, 20, 19, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      height: 68px;
+      background-color: rgba(18, 17, 16, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-hairline);
       position: sticky;
       top: 0;
@@ -146,18 +152,19 @@
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 500;
+      font-size: 23px;
+      font-weight: 800;
       color: var(--color-ink);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
     }
 
     .spike-mark {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       fill: var(--color-primary);
+      filter: drop-shadow(0 0 8px rgba(217, 119, 87, 0.5));
     }
 
     .nav-links {
@@ -168,7 +175,7 @@
 
     .nav-link {
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--color-muted);
       transition: color 0.15s ease;
     }
@@ -180,19 +187,21 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .badge-tag {
       display: inline-flex;
       align-items: center;
+      gap: 5px;
       background: var(--color-surface-card);
       color: var(--color-primary);
       font-size: 12px;
-      font-weight: 500;
-      padding: 3px 10px;
+      font-weight: 700;
+      padding: 4px 11px;
       border-radius: var(--rounded-pill);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
+      letter-spacing: 0.2px;
     }
 
     /* Buttons */
@@ -201,48 +210,56 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      font-family: var(--font-sans);
+      font-family: var(--font-display);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 700;
       border-radius: var(--rounded-md);
       padding: 10px 18px;
-      height: 40px;
+      height: 42px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
     }
 
     .btn-primary {
       background-color: var(--color-primary);
       color: var(--color-on-primary);
-      box-shadow: 0 2px 8px rgba(217, 119, 87, 0.25);
+      box-shadow: 0 4px 14px rgba(217, 119, 87, 0.35);
     }
 
     .btn-primary:hover {
       background-color: var(--color-primary-hover);
-      box-shadow: 0 4px 14px rgba(217, 119, 87, 0.35);
+      box-shadow: 0 6px 20px rgba(217, 119, 87, 0.45);
     }
 
     .btn-secondary {
       background-color: var(--color-surface-card);
       color: var(--color-ink);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
     }
 
     .btn-secondary:hover {
       background-color: var(--color-surface-cream-strong);
-      border-color: var(--color-hairline-strong);
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
     /* Hero Section */
     .hero-section {
-      padding: 80px 0 60px;
+      padding: 88px 0 64px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
-      gap: 40px;
+      gap: 48px;
       align-items: center;
     }
 
@@ -251,12 +268,14 @@
       align-items: center;
       gap: 8px;
       background: var(--color-surface-card);
-      border: 1px solid var(--color-hairline);
-      padding: 5px 14px;
+      border: 1px solid var(--color-hairline-strong);
+      padding: 6px 16px;
       border-radius: var(--rounded-pill);
       font-size: 13px;
+      font-weight: 700;
       color: var(--color-body-strong);
       margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .hero-badge .dot {
@@ -264,30 +283,34 @@
       height: 8px;
       background-color: var(--color-success);
       border-radius: 50%;
-      box-shadow: 0 0 8px rgba(93, 184, 114, 0.5);
+      box-shadow: 0 0 10px rgba(82, 183, 136, 0.7);
     }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: 56px;
-      font-weight: 400;
+      font-size: 58px;
+      font-weight: 800;
       line-height: 1.08;
-      letter-spacing: -1.2px;
+      letter-spacing: -1.8px;
       color: var(--color-ink);
       margin-bottom: 20px;
     }
 
     .hero-title em {
-      font-style: italic;
-      color: var(--color-primary);
+      font-style: normal;
+      background: linear-gradient(135deg, #e58a6d 0%, #d97757 50%, #c56546 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(217, 119, 87, 0.3);
     }
 
     .hero-subtitle {
-      font-size: 17px;
-      line-height: 1.6;
+      font-size: 18px;
+      line-height: 1.65;
+      font-weight: 500;
       color: var(--color-body);
-      margin-bottom: 32px;
-      max-width: 520px;
+      margin-bottom: 34px;
+      max-width: 530px;
     }
 
     .hero-cta-row {
@@ -302,26 +325,29 @@
       display: inline-flex;
       align-items: center;
       background: var(--color-surface-card);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
       border-radius: var(--rounded-md);
-      padding: 8px 14px;
+      padding: 9px 16px;
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 13.5px;
+      font-weight: 600;
       color: var(--color-ink);
       gap: 10px;
       cursor: pointer;
       user-select: all;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .command-pill:hover {
       background: var(--color-surface-cream-strong);
       border-color: var(--color-primary);
+      box-shadow: 0 0 12px var(--color-primary-glow);
     }
 
     .command-pill .copy-icon {
-      font-size: 12px;
-      color: var(--color-muted);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
     }
 
     /* Terminal Window Mockup */
@@ -330,12 +356,13 @@
       border-radius: var(--rounded-xl);
       overflow: hidden;
       border: 1px solid var(--color-hairline-strong);
-      box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 119, 87, 0.08);
+      position: relative;
     }
 
     .terminal-header {
       background-color: var(--color-surface-dark-elevated);
-      padding: 12px 18px;
+      padding: 13px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -344,12 +371,12 @@
 
     .terminal-dots {
       display: flex;
-      gap: 6px;
+      gap: 7px;
     }
 
     .terminal-dot {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
     }
 
@@ -368,10 +395,14 @@
       color: var(--color-muted);
       font-family: var(--font-mono);
       font-size: 12px;
-      padding: 4px 10px;
+      font-weight: 600;
+      padding: 5px 12px;
       border-radius: var(--rounded-sm);
       cursor: pointer;
-      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
     }
 
     .terminal-tab-btn:hover {
@@ -381,18 +412,18 @@
     .terminal-tab-btn.active {
       background-color: var(--color-surface-dark-soft);
       color: var(--color-ink);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
     }
 
     /* Terminal Body - Monospace Preformatted Alignment */
     .terminal-body {
-      padding: 22px 24px;
+      padding: 24px 26px;
       font-family: var(--font-mono);
       font-size: 12.5px;
-      line-height: 1.42;
+      line-height: 1.44;
       letter-spacing: 0;
       color: #ede8df;
-      min-height: 410px;
+      min-height: 420px;
       overflow-x: auto;
       white-space: pre;
       tab-size: 2;
@@ -402,12 +433,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .ansi-cyan { color: #5db8a6; }
+    .ansi-cyan { color: var(--color-accent-teal); }
     .ansi-coral { color: var(--color-primary); }
-    .ansi-green { color: #5db872; }
-    .ansi-yellow { color: #e8a55a; }
-    .ansi-dim { color: #858178; }
-    .ansi-bold { font-weight: 600; }
+    .ansi-green { color: var(--color-success); }
+    .ansi-yellow { color: var(--color-accent-amber); }
+    .ansi-dim { color: #8a857b; }
+    .ansi-bold { font-weight: 700; }
     .ansi-dot { display: inline-block; width: 1ch; text-align: center; }
 
     /* Host Grid Section */
@@ -417,77 +448,98 @@
     }
 
     .section-header {
-      margin-bottom: 48px;
+      margin-bottom: 52px;
     }
 
     .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: var(--color-primary);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .section-heading {
       font-family: var(--font-display);
-      font-size: 42px;
-      font-weight: 400;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
       color: var(--color-ink);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .section-subheading {
-      font-size: 17px;
+      font-size: 18px;
+      font-weight: 500;
       color: var(--color-muted);
-      max-width: 600px;
+      max-width: 640px;
     }
 
     .hosts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 22px;
     }
 
     .host-card {
       background: var(--color-surface-card);
       border: 1px solid var(--color-hairline);
       border-radius: var(--rounded-lg);
-      padding: 24px;
-      transition: all 0.2s ease;
+      padding: 26px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
 
     .host-card:hover {
       border-color: var(--color-primary);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.6), 0 0 16px var(--color-primary-glow);
     }
 
     .host-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .host-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .host-icon {
+      color: var(--color-primary);
+      width: 22px;
+      height: 22px;
     }
 
     .host-title {
-      font-size: 17px;
-      font-weight: 600;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
       color: var(--color-ink);
     }
 
     .host-path {
       font-family: var(--font-mono);
       font-size: 12px;
+      font-weight: 500;
       color: var(--color-accent-teal);
       word-break: break-all;
       background: var(--color-surface-dark);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
       padding: 8px 12px;
       border-radius: var(--rounded-sm);
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     /* Feature Cards */
@@ -502,44 +554,59 @@
       border-radius: var(--rounded-lg);
       padding: var(--spacing-xl);
       border: 1px solid var(--color-hairline);
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .feature-card:hover {
       border-color: var(--color-hairline-strong);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.6);
     }
 
-    .feature-icon {
-      font-size: 24px;
-      margin-bottom: 16px;
+    .feature-icon-box {
+      width: 48px;
+      height: 48px;
+      background: rgba(217, 119, 87, 0.12);
+      border: 1px solid rgba(217, 119, 87, 0.25);
+      border-radius: var(--rounded-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
       color: var(--color-primary);
+      transition: transform 0.25s ease;
+    }
+
+    .feature-card:hover .feature-icon-box {
+      transform: scale(1.08);
+      background: rgba(217, 119, 87, 0.18);
     }
 
     .feature-title {
       font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 500;
+      font-size: 22px;
+      font-weight: 800;
       color: var(--color-ink);
       margin-bottom: 10px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.4px;
     }
 
     .feature-desc {
       font-size: 15px;
+      font-weight: 500;
       color: var(--color-body);
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     .feature-desc code {
       background: var(--color-surface-dark);
       color: var(--color-accent-teal);
-      border: 1px solid var(--color-hairline);
-      padding: 2px 6px;
+      border: 1px solid var(--color-hairline-strong);
+      padding: 2px 7px;
       border-radius: var(--rounded-xs);
       font-family: var(--font-mono);
       font-size: 13px;
+      font-weight: 600;
     }
 
     /* CLI Reference Table */
@@ -548,15 +615,21 @@
       border: 1px solid var(--color-hairline);
       border-radius: var(--rounded-lg);
       overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
     .cli-row {
       display: grid;
-      grid-template-columns: 220px 1fr 140px;
-      padding: 16px 24px;
+      grid-template-columns: 240px 1fr 140px;
+      padding: 18px 26px;
       border-bottom: 1px solid var(--color-hairline-soft);
       align-items: center;
-      font-size: 14px;
+      font-size: 14.5px;
+      transition: background-color 0.15s ease;
+    }
+
+    .cli-row:hover {
+      background-color: var(--color-surface-cream-strong);
     }
 
     .cli-row:last-child {
@@ -569,17 +642,22 @@
 
     .cli-cmd {
       font-family: var(--font-mono);
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .cli-desc {
       color: var(--color-body);
+      font-weight: 500;
     }
 
     .cli-shortcut {
       font-family: var(--font-mono);
       font-size: 12px;
+      font-weight: 600;
       color: var(--color-muted);
       text-align: right;
     }
@@ -589,29 +667,33 @@
       background: var(--color-surface-card);
       border: 1px solid var(--color-hairline);
       border-radius: var(--rounded-xl);
-      padding: 36px;
+      padding: 38px;
       color: var(--color-on-dark);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     }
 
     .install-tabs {
       display: flex;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       border-bottom: 1px solid var(--color-hairline);
-      padding-bottom: 12px;
+      padding-bottom: 14px;
     }
 
     .install-tab-btn {
       background: transparent;
       border: none;
       color: var(--color-muted);
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 8px 16px;
+      font-family: var(--font-display);
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 9px 18px;
       border-radius: var(--rounded-md);
       cursor: pointer;
-      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
     }
 
     .install-tab-btn:hover {
@@ -621,7 +703,7 @@
     .install-tab-btn.active {
       background: var(--color-surface-cream-strong);
       color: var(--color-ink);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
     }
 
     .install-panel {
@@ -635,11 +717,12 @@
     .install-code-wrap {
       position: relative;
       background: var(--color-surface-dark);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
       border-radius: var(--rounded-md);
-      padding: 18px 20px;
+      padding: 18px 22px;
       font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: 14.5px;
+      font-weight: 600;
       color: var(--color-accent-teal);
       display: flex;
       justify-content: space-between;
@@ -651,9 +734,14 @@
       color: var(--color-ink);
       border: 1px solid var(--color-hairline-strong);
       border-radius: var(--rounded-sm);
-      padding: 6px 14px;
-      font-size: 12px;
+      padding: 7px 16px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       transition: all 0.15s ease;
     }
 
@@ -664,36 +752,40 @@
 
     /* Callout Band Pre-Footer */
     .callout-coral {
-      background: linear-gradient(135deg, rgba(217, 119, 87, 0.2) 0%, rgba(20, 20, 19, 0.95) 100%);
-      border: 1px solid rgba(217, 119, 87, 0.35);
+      background: linear-gradient(135deg, rgba(217, 119, 87, 0.22) 0%, rgba(18, 17, 16, 0.96) 100%);
+      border: 1px solid rgba(217, 119, 87, 0.4);
       border-radius: var(--rounded-lg);
       padding: 56px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 60px 0;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      margin: 64px 0;
+      box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.6);
     }
 
     .callout-coral h3 {
       font-family: var(--font-display);
-      font-size: 36px;
-      font-weight: 400;
+      font-size: 38px;
+      font-weight: 800;
       color: var(--color-ink);
       margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
     }
 
     .callout-coral p {
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 500;
       color: var(--color-body);
     }
 
     .btn-cream {
       background-color: var(--color-primary);
       color: #ffffff;
-      font-weight: 600;
-      box-shadow: 0 4px 14px rgba(217, 119, 87, 0.35);
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 16px rgba(217, 119, 87, 0.4);
+      padding: 12px 24px;
+      height: 48px;
     }
 
     .btn-cream:hover {
@@ -704,7 +796,7 @@
     .footer {
       background-color: var(--color-surface-dark);
       color: var(--color-muted);
-      padding: 64px 0 40px;
+      padding: 68px 0 42px;
       border-top: 1px solid var(--color-hairline-soft);
     }
 
@@ -718,6 +810,7 @@
     .footer-brand {
       font-family: var(--font-display);
       font-size: 26px;
+      font-weight: 800;
       color: var(--color-ink);
       margin-bottom: 12px;
       display: flex;
@@ -726,46 +819,56 @@
     }
 
     .footer-desc {
-      font-size: 14px;
+      font-size: 14.5px;
+      font-weight: 500;
       line-height: 1.6;
-      max-width: 320px;
-      margin-bottom: 20px;
+      max-width: 330px;
+      margin-bottom: 22px;
       color: var(--color-body);
     }
 
     .creator-badge {
       background: var(--color-surface-card);
-      border: 1px solid var(--color-hairline);
+      border: 1px solid var(--color-hairline-strong);
       border-radius: var(--rounded-md);
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--color-body);
-      display: inline-block;
+      padding: 12px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-body-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .creator-badge strong {
       color: var(--color-primary);
+      font-weight: 800;
     }
 
     .footer-col-title {
+      font-family: var(--font-display);
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 800;
       color: var(--color-ink);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
     }
 
     .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
       font-size: 14px;
+      font-weight: 600;
     }
 
     .footer-links a {
       color: var(--color-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       transition: color 0.15s ease;
     }
 
@@ -775,10 +878,11 @@
 
     .footer-bottom {
       border-top: 1px solid var(--color-hairline-soft);
-      padding-top: 24px;
+      padding-top: 26px;
       display: flex;
       justify-content: space-between;
       font-size: 13px;
+      font-weight: 500;
       color: var(--color-muted-soft);
     }
 
@@ -800,10 +904,13 @@
       }
       .cli-row {
         grid-template-columns: 1fr;
-        gap: 6px;
+        gap: 8px;
       }
       .cli-shortcut {
         text-align: left;
+      }
+      .hero-title {
+        font-size: 42px;
       }
     }
   </style>
@@ -819,7 +926,7 @@
           <path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z" />
         </svg>
         <span>MCPmg</span>
-        <span class="badge-tag">v1.0.1</span>
+        <span class="badge-tag"><i data-lucide="shield-check" style="width:13px;height:13px;"></i> v1.0.1</span>
       </div>
 
       <div class="nav-links">
@@ -832,10 +939,13 @@
 
       <div class="nav-actions">
         <a href="https://github.com/AJAYMYTH/MCPmg" target="_blank" class="btn btn-secondary">
-          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <i data-lucide="github" style="width:16px;height:16px;"></i>
           GitHub
         </a>
-        <a href="#installation" class="btn btn-primary">Install Now</a>
+        <a href="#installation" class="btn btn-primary">
+          <i data-lucide="download" style="width:16px;height:16px;"></i>
+          Install Now
+        </a>
       </div>
     </div>
   </nav>
@@ -843,25 +953,29 @@
   <!-- Hero Section -->
   <section class="hero-section" id="overview">
     <div class="container hero-grid">
-      <div>
+      <div class="hero-content">
         <div class="hero-badge">
           <span class="dot"></span>
           <span>Open Source MCP Tooling</span>
           <span style="color: var(--color-muted);">•</span>
-          <span>Zero Telemetry</span>
+          <span style="color: var(--color-accent-teal);">Zero Telemetry</span>
         </div>
         <h1 class="hero-title">
           Unified control for <em>Model Context Protocol</em>
         </h1>
         <p class="hero-subtitle">
-          The cross-platform CLI & full-screen interactive TUI for monitoring, diagnosing, and auto-repairing MCP servers across all your AI desktop clients.
+          The high-performance cross-platform CLI & full-screen interactive TUI for monitoring, diagnosing, and auto-repairing MCP servers across all your AI desktop clients.
         </p>
         <div class="hero-cta-row">
-          <a href="#installation" class="btn btn-primary">Get Started</a>
-          <a href="#cli" class="btn btn-secondary">Explore CLI Reference</a>
-          <div class="command-pill" onclick="copySnippet('npx @ajay.j_dev/mcpmg')">
+          <a href="#installation" class="btn btn-primary">
+            Get Started <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+          <a href="#cli" class="btn btn-secondary">
+            <i data-lucide="terminal" style="width:16px;height:16px;"></i> CLI Reference
+          </a>
+          <div class="command-pill" onclick="copySnippet('npx @ajay.j_dev/mcpmg', this)">
             <span>npx @ajay.j_dev/mcpmg</span>
-            <span class="copy-icon">📋</span>
+            <span class="copy-icon"><i data-lucide="copy" style="width:15px;height:15px;"></i></span>
           </div>
         </div>
       </div>
@@ -875,9 +989,15 @@
             <div class="terminal-dot dot-green"></div>
           </div>
           <div class="terminal-tabs">
-            <button class="terminal-tab-btn active" onclick="switchTerminalTab('list', this)">mcpmg list</button>
-            <button class="terminal-tab-btn" onclick="switchTerminalTab('monitor', this)">mcpmg monitor</button>
-            <button class="terminal-tab-btn" onclick="switchTerminalTab('doctor', this)">mcpmg doctor</button>
+            <button class="terminal-tab-btn active" onclick="switchTerminalTab('list', this)">
+              <i data-lucide="list" style="width:13px;height:13px;"></i> mcpmg list
+            </button>
+            <button class="terminal-tab-btn" onclick="switchTerminalTab('monitor', this)">
+              <i data-lucide="activity" style="width:13px;height:13px;"></i> mcpmg monitor
+            </button>
+            <button class="terminal-tab-btn" onclick="switchTerminalTab('doctor', this)">
+              <i data-lucide="stethoscope" style="width:13px;height:13px;"></i> mcpmg doctor
+            </button>
           </div>
         </div>
         <pre class="terminal-body" id="terminal-content"><!-- Monospace Terminal Output --></pre>
@@ -889,7 +1009,9 @@
   <section class="section-band" id="hosts">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">Multi-Host Discovery</div>
+        <div class="section-eyebrow">
+          <i data-lucide="scan" style="width:15px;height:15px;"></i> Multi-Host Discovery
+        </div>
         <h2 class="section-heading">Works with every AI environment you use</h2>
         <p class="section-subheading">Automatic discovery parses host configurations without touching your existing custom settings.</p>
       </div>
@@ -897,55 +1019,73 @@
       <div class="hosts-grid">
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">Claude Desktop</span>
+            <div class="host-title-wrap">
+              <i data-lucide="monitor" class="host-icon"></i>
+              <span class="host-title">Claude Desktop</span>
+            </div>
             <span class="badge-tag">macOS / Win</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Official Anthropic desktop client configuration.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Official Anthropic desktop client configuration.</p>
           <div class="host-path">%APPDATA%\Claude\claude_desktop_config.json</div>
         </div>
 
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">Antigravity / Gemini</span>
+            <div class="host-title-wrap">
+              <i data-lucide="sparkles" class="host-icon"></i>
+              <span class="host-title">Antigravity / Gemini</span>
+            </div>
             <span class="badge-tag">Cross-Platform</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Google Antigravity & Gemini Code Assist settings.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Google Antigravity & Gemini Code Assist settings.</p>
           <div class="host-path">~/.gemini/antigravity/mcp_config.json</div>
         </div>
 
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">Cursor AI</span>
+            <div class="host-title-wrap">
+              <i data-lucide="code-2" class="host-icon"></i>
+              <span class="host-title">Cursor AI</span>
+            </div>
             <span class="badge-tag">Cross-Platform</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Cursor IDE global Model Context Protocol registry.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Cursor IDE global Model Context Protocol registry.</p>
           <div class="host-path">~/.cursor/mcp.json</div>
         </div>
 
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">VS Code (Cline / Roo)</span>
+            <div class="host-title-wrap">
+              <i data-lucide="bot" class="host-icon"></i>
+              <span class="host-title">VS Code (Cline / Roo)</span>
+            </div>
             <span class="badge-tag">Extension</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Autonomous coding agent global storage.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Autonomous coding agent global storage.</p>
           <div class="host-path">%APPDATA%\Code\User\...\cline_mcp_settings.json</div>
         </div>
 
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">Claude Code CLI</span>
+            <div class="host-title-wrap">
+              <i data-lucide="terminal-square" class="host-icon"></i>
+              <span class="host-title">Claude Code CLI</span>
+            </div>
             <span class="badge-tag">CLI Native</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Terminal-based Claude agent global tool config.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Terminal-based Claude agent global tool config.</p>
           <div class="host-path">~/.claude.json</div>
         </div>
 
         <div class="host-card">
           <div class="host-card-header">
-            <span class="host-title">Local Workspace</span>
+            <div class="host-title-wrap">
+              <i data-lucide="folder-git-2" class="host-icon"></i>
+              <span class="host-title">Local Workspace</span>
+            </div>
             <span class="badge-tag">Repository</span>
           </div>
-          <p style="font-size: 14px; color: var(--color-muted);">Project-scoped shared server definitions.</p>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-muted);">Project-scoped shared server definitions.</p>
           <div class="host-path">./.mcp.json</div>
         </div>
       </div>
@@ -956,44 +1096,58 @@
   <section class="section-band" id="features">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">Built for Production</div>
+        <div class="section-eyebrow">
+          <i data-lucide="zap" style="width:15px;height:15px;"></i> Built for Production
+        </div>
         <h2 class="section-heading">Engineered with speed, safety, and precision</h2>
         <p class="section-subheading">From dual-pane animated TUI to one-click repair wizards, everything you need to keep your MCP mesh healthy.</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🖥️</div>
+          <div class="feature-icon-box">
+            <i data-lucide="layout-dashboard" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Full-Screen TUI</h3>
           <p class="feature-desc">Dual-pane dashboard with real-time health polling, smooth animation frames, and zero-flicker alternate screen buffers (<code>mcpmg tui</code>).</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🩺</div>
+          <div class="feature-icon-box">
+            <i data-lucide="stethoscope" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Diagnostic Doctor</h3>
           <p class="feature-desc">Audits missing environment tokens, expired API keys, Windows <code>npx</code> vs <code>npx.cmd</code> paths, and JSON schema syntax errors (<code>mcpmg doctor</code>).</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">📐</div>
+          <div class="feature-icon-box">
+            <i data-lucide="table-2" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Responsive Tables</h3>
           <p class="feature-desc">Mathematically boundary-enforced CLI tables that never overflow or wrap, optimized for 80-column and split-window terminals.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🛡️</div>
+          <div class="feature-icon-box">
+            <i data-lucide="wrench" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Interactive Auto-Fixer</h3>
           <p class="feature-desc">Guided repair wizard prompts for missing credentials, resolves executable extensions, and verifies connection before applying changes (<code>mcpmg fix</code>).</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">💾</div>
+          <div class="feature-icon-box">
+            <i data-lucide="history" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Automatic Snapshots</h3>
           <p class="feature-desc">Timestamped backups are created in <code>~/.mcpmg/backups/</code> prior to any file mutation, with instant rollback support (<code>mcpmg backup restore</code>).</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon-box">
+            <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+          </div>
           <h3 class="feature-title">Native Binaries</h3>
           <p class="feature-desc">Self-contained native executables for Windows (<code>.exe</code>), macOS (<code>arm64</code>), and Linux (<code>x64</code>) with zero external Node.js dependencies.</p>
         </div>
@@ -1005,54 +1159,56 @@
   <section class="section-band" id="cli">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">Command Line Interface</div>
+        <div class="section-eyebrow">
+          <i data-lucide="command" style="width:15px;height:15px;"></i> Command Line Interface
+        </div>
         <h2 class="section-heading">Intuitive command palette</h2>
         <p class="section-subheading">Run individual commands directly or pass flags to automate scripting pipelines.</p>
       </div>
 
       <div class="cli-box">
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg tui</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg tui</span>
           <span class="cli-desc">Launch full-screen interactive dual-pane TermUI dashboard</span>
           <span class="cli-shortcut">ui, dashboard</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg list</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg list</span>
           <span class="cli-desc">List all detected MCP servers across all hosts in a responsive table</span>
           <span class="cli-shortcut">ls</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg monitor</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg monitor</span>
           <span class="cli-desc">Launch real-time live health monitor with auto-polling & keyboard navigation</span>
           <span class="cli-shortcut">watch</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg doctor [name]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg doctor [name]</span>
           <span class="cli-desc">Run deep diagnostic audit for auth tokens, paths, and connectivity</span>
           <span class="cli-shortcut">doctor</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg fix [name]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg fix [name]</span>
           <span class="cli-desc">Interactively repair diagnosed errors with guided prompts and safe backup</span>
           <span class="cli-shortcut">fix</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg test [name]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg test [name]</span>
           <span class="cli-desc">Probe server latency, inspect capabilities, and list exposed tools</span>
           <span class="cli-shortcut">ping</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg add [name]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg add [name]</span>
           <span class="cli-desc">Add a new MCP server via interactive wizard or catalog presets</span>
           <span class="cli-shortcut">add</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg sync [name]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg sync [name]</span>
           <span class="cli-desc">Sync or clone an MCP server configuration between AI hosts</span>
           <span class="cli-shortcut">sync</span>
         </div>
         <div class="cli-row">
-          <span class="cli-cmd">mcpmg backup [action]</span>
+          <span class="cli-cmd"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--color-primary);"></i> mcpmg backup [action]</span>
           <span class="cli-desc">Manage configuration snapshots (actions: list, restore)</span>
           <span class="cli-shortcut">backup</span>
         </div>
@@ -1064,48 +1220,66 @@
   <section class="section-band" id="installation">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">Deployment</div>
+        <div class="section-eyebrow">
+          <i data-lucide="download-cloud" style="width:15px;height:15px;"></i> Deployment
+        </div>
         <h2 class="section-heading">Install MCPmg on your machine</h2>
         <p class="section-subheading">Choose your preferred package manager or installer.</p>
       </div>
 
       <div class="install-box">
         <div class="install-tabs">
-          <button class="install-tab-btn active" onclick="switchInstallTab('winget', this)">Windows (Winget)</button>
-          <button class="install-tab-btn" onclick="switchInstallTab('powershell', this)">Windows (PowerShell)</button>
-          <button class="install-tab-btn" onclick="switchInstallTab('curl', this)">macOS & Linux</button>
-          <button class="install-tab-btn" onclick="switchInstallTab('npm', this)">npm Package</button>
+          <button class="install-tab-btn active" onclick="switchInstallTab('winget', this)">
+            <i data-lucide="box" style="width:16px;height:16px;"></i> Windows (Winget)
+          </button>
+          <button class="install-tab-btn" onclick="switchInstallTab('powershell', this)">
+            <i data-lucide="terminal" style="width:16px;height:16px;"></i> Windows (PowerShell)
+          </button>
+          <button class="install-tab-btn" onclick="switchInstallTab('curl', this)">
+            <i data-lucide="binary" style="width:16px;height:16px;"></i> macOS & Linux
+          </button>
+          <button class="install-tab-btn" onclick="switchInstallTab('npm', this)">
+            <i data-lucide="package" style="width:16px;height:16px;"></i> npm Package
+          </button>
         </div>
 
         <div id="panel-winget" class="install-panel active">
-          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14px;">Install via the official Windows Package Manager:</p>
+          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14.5px; font-weight: 500;">Install via the official Windows Package Manager:</p>
           <div class="install-code-wrap">
             <code>winget install AJAYMYTH.MCPmg</code>
-            <button class="copy-btn" onclick="copySnippet('winget install AJAYMYTH.MCPmg')">Copy</button>
+            <button class="copy-btn" onclick="copySnippet('winget install AJAYMYTH.MCPmg', this)">
+              <i data-lucide="copy" style="width:14px;height:14px;"></i> Copy
+            </button>
           </div>
         </div>
 
         <div id="panel-powershell" class="install-panel">
-          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14px;">Download standalone mcpmg.exe and configure PATH automatically:</p>
+          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14.5px; font-weight: 500;">Download standalone mcpmg.exe and configure PATH automatically:</p>
           <div class="install-code-wrap">
             <code>irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex</code>
-            <button class="copy-btn" onclick="copySnippet('irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex')">Copy</button>
+            <button class="copy-btn" onclick="copySnippet('irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex', this)">
+              <i data-lucide="copy" style="width:14px;height:14px;"></i> Copy
+            </button>
           </div>
         </div>
 
         <div id="panel-curl" class="install-panel">
-          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14px;">One-liner installer with automatic CPU architecture detection:</p>
+          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14.5px; font-weight: 500;">One-liner installer with automatic CPU architecture detection:</p>
           <div class="install-code-wrap">
             <code>curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash</code>
-            <button class="copy-btn" onclick="copySnippet('curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash')">Copy</button>
+            <button class="copy-btn" onclick="copySnippet('curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash', this)">
+              <i data-lucide="copy" style="width:14px;height:14px;"></i> Copy
+            </button>
           </div>
         </div>
 
         <div id="panel-npm" class="install-panel">
-          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14px;">Install globally or run immediately with npx:</p>
+          <p style="margin-bottom: 12px; color: var(--color-muted); font-size: 14.5px; font-weight: 500;">Install globally or run immediately with npx:</p>
           <div class="install-code-wrap">
             <code>npm install -g @ajay.j_dev/mcpmg</code>
-            <button class="copy-btn" onclick="copySnippet('npm install -g @ajay.j_dev/mcpmg')">Copy</button>
+            <button class="copy-btn" onclick="copySnippet('npm install -g @ajay.j_dev/mcpmg', this)">
+              <i data-lucide="copy" style="width:14px;height:14px;"></i> Copy
+            </button>
           </div>
         </div>
       </div>
@@ -1116,7 +1290,9 @@
           <h3>Take control of your MCP ecosystem</h3>
           <p>Inspect servers, verify tools, and resolve configuration errors in seconds.</p>
         </div>
-        <a href="https://github.com/AJAYMYTH/MCPmg" target="_blank" class="btn btn-cream">Star on GitHub ⭐</a>
+        <a href="https://github.com/AJAYMYTH/MCPmg" target="_blank" class="btn btn-cream">
+          <i data-lucide="star" style="width:18px;height:18px;"></i> Star on GitHub ⭐
+        </a>
       </div>
     </div>
   </section>
@@ -1136,6 +1312,7 @@
             Model Context Protocol Multi-Host Manager & Health Monitor. Open source under the MIT License.
           </p>
           <div class="creator-badge">
+            <i data-lucide="award" style="width:16px;height:16px;color:var(--color-primary);"></i>
             Created & Developed by <strong>AJAYMYTH (Javali Ajayakumar)</strong>
           </div>
         </div>
@@ -1143,45 +1320,50 @@
         <div>
           <div class="footer-col-title">Documentation</div>
           <ul class="footer-links">
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#hosts">Supported Hosts</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#cli">CLI Commands</a></li>
-            <li><a href="#installation">Installation</a></li>
+            <li><a href="#overview"><i data-lucide="arrow-right" style="width:13px;height:13px;"></i> Overview</a></li>
+            <li><a href="#hosts"><i data-lucide="arrow-right" style="width:13px;height:13px;"></i> Supported Hosts</a></li>
+            <li><a href="#features"><i data-lucide="arrow-right" style="width:13px;height:13px;"></i> Features</a></li>
+            <li><a href="#cli"><i data-lucide="arrow-right" style="width:13px;height:13px;"></i> CLI Commands</a></li>
+            <li><a href="#installation"><i data-lucide="arrow-right" style="width:13px;height:13px;"></i> Installation</a></li>
           </ul>
         </div>
 
         <div>
           <div class="footer-col-title">Releases & Binaries</div>
           <ul class="footer-links">
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/latest" target="_blank">Latest Release (v1.0.1)</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg.exe" target="_blank">Windows .exe (x64)</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-macos-arm64.tar.gz" target="_blank">macOS (arm64)</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-linux-x64.tar.gz" target="_blank">Linux (x64)</a></li>
-            <li><a href="https://www.npmjs.com/package/@ajay.j_dev/mcpmg" target="_blank">npm Registry</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/latest" target="_blank"><i data-lucide="tag" style="width:13px;height:13px;"></i> Latest Release (v1.0.1)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg.exe" target="_blank"><i data-lucide="download" style="width:13px;height:13px;"></i> Windows .exe (x64)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-macos-arm64.tar.gz" target="_blank"><i data-lucide="download" style="width:13px;height:13px;"></i> macOS (arm64)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-linux-x64.tar.gz" target="_blank"><i data-lucide="download" style="width:13px;height:13px;"></i> Linux (x64)</a></li>
+            <li><a href="https://www.npmjs.com/package/@ajay.j_dev/mcpmg" target="_blank"><i data-lucide="package" style="width:13px;height:13px;"></i> npm Registry</a></li>
           </ul>
         </div>
 
         <div>
           <div class="footer-col-title">Community & Code</div>
           <ul class="footer-links">
-            <li><a href="https://github.com/AJAYMYTH/MCPmg" target="_blank">GitHub Repository</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/issues" target="_blank">Issue Tracker</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CHANGELOG.md" target="_blank">Changelog</a></li>
-            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
-            <li><a href="https://github.com/AJAYMYTH" target="_blank">Author Profile</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg" target="_blank"><i data-lucide="github" style="width:13px;height:13px;"></i> GitHub Repository</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/issues" target="_blank"><i data-lucide="alert-circle" style="width:13px;height:13px;"></i> Issue Tracker</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CHANGELOG.md" target="_blank"><i data-lucide="file-text" style="width:13px;height:13px;"></i> Changelog</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CONTRIBUTING.md" target="_blank"><i data-lucide="git-pull-request" style="width:13px;height:13px;"></i> Contributing</a></li>
+            <li><a href="https://github.com/AJAYMYTH" target="_blank"><i data-lucide="user" style="width:13px;height:13px;"></i> Author Profile</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div>Copyright &copy; 2026 AJAYMYTH (Javali Ajayakumar). Distributed under MIT License.</div>
-        <div>Designed inspired by Anthropic Claude design system.</div>
+        <div>Designed with bold modern developer aesthetics.</div>
       </div>
     </div>
   </footer>
 
   <script>
+    // Initialize Lucide icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
     const terminalDemos = {
       list: `  <span class="ansi-coral ansi-bold">███╗   ███╗ ██████╗██████╗ ███╗   ███╗ ██████╗ </span>
   <span class="ansi-coral ansi-bold">████╗ ████║██╔════╝██╔══██╗████╗ ████║██╔════╝ </span>
@@ -1248,7 +1430,19 @@
     function switchTerminalTab(tab, btn) {
       document.querySelectorAll('.terminal-tab-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      document.getElementById('terminal-content').innerHTML = terminalDemos[tab] || '';
+      const container = document.getElementById('terminal-content');
+      container.innerHTML = terminalDemos[tab] || '';
+      
+      // Anime.js smooth tab transition
+      if (window.anime) {
+        anime({
+          targets: container,
+          opacity: [0.3, 1],
+          translateY: [6, 0],
+          duration: 350,
+          easing: 'easeOutCubic'
+        });
+      }
     }
 
     function switchInstallTab(tab, btn) {
@@ -1256,12 +1450,39 @@
       if (btn) btn.classList.add('active');
       document.querySelectorAll('.install-panel').forEach(panel => panel.classList.remove('active'));
       const activePanel = document.getElementById('panel-' + tab);
-      if (activePanel) activePanel.classList.add('active');
+      if (activePanel) {
+        activePanel.classList.add('active');
+        if (window.anime) {
+          anime({
+            targets: activePanel,
+            opacity: [0.4, 1],
+            translateY: [6, 0],
+            duration: 300,
+            easing: 'easeOutCubic'
+          });
+        }
+      }
     }
 
-    function copySnippet(text) {
+    function copySnippet(text, el) {
       navigator.clipboard.writeText(text).then(() => {
-        alert('Copied to clipboard: ' + text);
+        if (el) {
+          // Anime.js button bounce
+          if (window.anime) {
+            anime({
+              targets: el,
+              scale: [1, 1.05, 1],
+              duration: 300,
+              easing: 'easeInOutQuad'
+            });
+          }
+          const originalHTML = el.innerHTML;
+          el.innerHTML = '<span style="color:var(--color-success);font-weight:700;">Copied! ✓</span>';
+          setTimeout(() => {
+            el.innerHTML = originalHTML;
+            if (window.lucide) lucide.createIcons();
+          }, 2000);
+        }
       }).catch(() => {
         prompt('Copy command:', text);
       });
@@ -1269,6 +1490,112 @@
 
     // Initialize with 'list' tab
     document.getElementById('terminal-content').innerHTML = terminalDemos.list;
+
+    // Anime.js Entrance & Interactive Stagger Animations
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.anime) return;
+
+      // 1. Hero Entrance Timeline
+      const heroTl = anime.timeline({
+        easing: 'easeOutCubic'
+      });
+
+      heroTl
+        .add({
+          targets: '.hero-badge',
+          opacity: [0, 1],
+          translateY: [-15, 0],
+          duration: 600
+        })
+        .add({
+          targets: '.hero-title',
+          opacity: [0, 1],
+          translateY: [25, 0],
+          duration: 800
+        }, '-=400')
+        .add({
+          targets: '.hero-subtitle',
+          opacity: [0, 1],
+          translateY: [20, 0],
+          duration: 700
+        }, '-=500')
+        .add({
+          targets: '.hero-cta-row > *',
+          opacity: [0, 1],
+          translateY: [15, 0],
+          delay: anime.stagger(100),
+          duration: 600
+        }, '-=400')
+        .add({
+          targets: '.terminal-card',
+          opacity: [0, 1],
+          scale: [0.96, 1],
+          translateY: [25, 0],
+          duration: 900
+        }, '-=600');
+
+      // 2. Scroll-triggered animations for sections
+      const observerOptions = { threshold: 0.15 };
+
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+
+            if (target.classList.contains('hosts-grid')) {
+              anime({
+                targets: target.querySelectorAll('.host-card'),
+                opacity: [0, 1],
+                translateY: [35, 0],
+                delay: anime.stagger(100),
+                duration: 700,
+                easing: 'easeOutCubic'
+              });
+            } else if (target.classList.contains('features-grid')) {
+              anime({
+                targets: target.querySelectorAll('.feature-card'),
+                opacity: [0, 1],
+                translateY: [35, 0],
+                delay: anime.stagger(110),
+                duration: 750,
+                easing: 'easeOutCubic'
+              });
+            } else if (target.classList.contains('cli-box')) {
+              anime({
+                targets: target.querySelectorAll('.cli-row'),
+                opacity: [0, 1],
+                translateX: [-15, 0],
+                delay: anime.stagger(60),
+                duration: 600,
+                easing: 'easeOutCubic'
+              });
+            } else if (target.classList.contains('install-box')) {
+              anime({
+                targets: target,
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 800,
+                easing: 'easeOutCubic'
+              });
+            } else if (target.classList.contains('callout-coral')) {
+              anime({
+                targets: target,
+                opacity: [0, 1],
+                scale: [0.97, 1],
+                duration: 750,
+                easing: 'easeOutCubic'
+              });
+            }
+
+            observer.unobserve(target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.hosts-grid, .features-grid, .cli-box, .install-box, .callout-coral').forEach(el => {
+        sectionObserver.observe(el);
+      });
+    });
   </script>
 </body>
 </html>
