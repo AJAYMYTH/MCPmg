@@ -6,6 +6,14 @@
   "bin": {
     "mcpmg": "./dist/cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJAYMYTH/MCPmg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AJAYMYTH/MCPmg/issues"
+  },
+  "homepage": "https://github.com/AJAYMYTH/MCPmg#readme",
   "files": [
     "dist",
     "README.md",

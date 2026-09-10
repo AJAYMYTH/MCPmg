@@ -11,8 +11,8 @@
 
 ### Model Context Protocol Multi-Host Manager, Diagnostic Doctor & Live Health Monitor
 
-[![CI](https://github.com/javalsavaliya/mcpmg/actions/workflows/ci.yml/badge.svg)](https://github.com/javalsavaliya/mcpmg/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/javalsavaliya/mcpmg?color=blue&logo=github)](https://github.com/javalsavaliya/mcpmg/releases)
+[![CI](https://github.com/AJAYMYTH/MCPmg/actions/workflows/ci.yml/badge.svg)](https://github.com/AJAYMYTH/MCPmg/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/AJAYMYTH/MCPmg?color=blue&logo=github)](https://github.com/AJAYMYTH/MCPmg/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933?logo=node.js)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -69,7 +69,7 @@ npm install -g mcpmg
 
 ### Install from Source
 ```bash
-git clone https://github.com/javalsavaliya/mcpmg.git
+git clone https://github.com/AJAYMYTH/MCPmg.git
 cd mcpmg
 npm install
 npm run build
