@@ -26,7 +26,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "typecheck": "tsc --noEmit",
-    "test": "node --test dist/test/*.test.js",
+    "test": "node scripts/run-tests.js",
     "pretest": "npm run build",
     "start": "node dist/cli.js"
   },
