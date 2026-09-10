@@ -1,5 +1,5 @@
 {
-  "name": "mcpmg",
+  "name": "@ajay.j_dev/mcpmg",
   "version": "1.0.0",
   "description": "Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-fixing Model Context Protocol (MCP) servers across all AI hosts.",
   "type": "module",

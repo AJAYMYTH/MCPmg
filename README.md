@@ -64,7 +64,10 @@ Built with **TypeScript**, **Node.js**, **TermUI**, **Ink**, and the official **
 
 ### Install via npm
 ```bash
-npm install -g mcpmg
+npm install -g @ajay.j_dev/mcpmg
+
+# Or run instantly without global install
+npx @ajay.j_dev/mcpmg
 ```
 
 ### Install from Source
