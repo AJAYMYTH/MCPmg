@@ -79,6 +79,8 @@ jobs:
     name: Publish Release & npm Package
     needs: build-binaries
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - name: Checkout Repository
@@ -141,17 +143,17 @@ jobs:
       - name: Publish to npm (using NPM_TOKEN)
         if: env.NODE_AUTH_TOKEN != ''
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   winget:
     name: Publish to Winget Community Repo
     needs: release
     runs-on: windows-latest
-    if: ${{ always() && secrets.WINGET_TOKEN != '' }}
+    env:
+      WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
 
     steps:
       - name: Submit Package to Windows Package Manager (Winget)
+        if: env.WINGET_TOKEN != ''
         uses: vedantmgoyal9/winget-releaser@v2
         with:
           identifier: AJAYMYTH.MCPmg
