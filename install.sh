@@ -38,6 +38,19 @@ case "$ARCH" in
   *)              echo -e "${RED}Error: Unsupported architecture: $ARCH${NC}" >&2; exit 1 ;;
 esac
 
+if [ "$PLATFORM" = "macos" ] && [ "$ARCH_NAME" = "x64" ]; then
+  echo -e "${YELLOW}Notice: Native binaries for macOS are built for Apple Silicon (arm64).${NC}"
+  echo -e "${YELLOW}For Intel Macs, please install via npm: npm install -g @ajay.j_dev/mcpmg${NC}"
+  if command -v npm >/dev/null 2>&1; then
+    echo -e "${GREEN}==> Running: npm install -g @ajay.j_dev/mcpmg...${NC}"
+    npm install -g @ajay.j_dev/mcpmg
+    echo -e "\n${GREEN}✓ Successfully installed MCPmg via npm${NC}"
+    exit 0
+  else
+    exit 1
+  fi
+fi
+
 ARCHIVE_NAME="mcpmg-${PLATFORM}-${ARCH_NAME}.tar.gz"
 DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${ARCHIVE_NAME}"
 

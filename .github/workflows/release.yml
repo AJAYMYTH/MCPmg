@@ -27,11 +27,6 @@ jobs:
             arch: arm64
             bin_name: mcpmg
             archive_name: mcpmg-macos-arm64.tar.gz
-          - os: macos-13
-            platform: macos
-            arch: x64
-            bin_name: mcpmg
-            archive_name: mcpmg-macos-x64.tar.gz
           - os: ubuntu-latest
             platform: linux
             arch: x64

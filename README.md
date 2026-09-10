@@ -92,7 +92,6 @@ Download pre-compiled, self-contained standalone executables (zero dependencies 
 |---|---|---|
 | **Windows** | x64 | [`mcpmg.exe`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg.exe) / [`mcpmg-windows-x64.zip`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-windows-x64.zip) |
 | **macOS** | Apple Silicon (M-series / arm64) | [`mcpmg-macos-arm64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-macos-arm64.tar.gz) |
-| **macOS** | Intel (x64) | [`mcpmg-macos-x64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-macos-x64.tar.gz) |
 | **Linux** | x64 | [`mcpmg-linux-x64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-linux-x64.tar.gz) |
 
 ### 6. Build from Source
