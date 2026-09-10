@@ -12,6 +12,7 @@
 ### Model Context Protocol Multi-Host Manager, Diagnostic Doctor & Live Health Monitor
 
 [![CI](https://github.com/AJAYMYTH/MCPmg/actions/workflows/ci.yml/badge.svg)](https://github.com/AJAYMYTH/MCPmg/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-cc785c?logo=github)](https://ajaymyth.github.io/MCPmg/)
 [![Release](https://img.shields.io/github/v/release/AJAYMYTH/MCPmg?color=blue&logo=github)](https://github.com/AJAYMYTH/MCPmg/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933?logo=node.js)](https://nodejs.org/)
@@ -21,6 +22,8 @@
 </div>
 
 ---
+
+📖 **Documentation Website**: **[https://ajaymyth.github.io/MCPmg/](https://ajaymyth.github.io/MCPmg/)**
 
 **MCPmg** is a unified, global CLI and full-screen Terminal UI (TUI) tool for managing, monitoring, diagnosing, and auto-repairing [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers across all major AI hosts—including **Claude Desktop**, **Antigravity / Gemini**, **Cursor**, **VS Code (Cline / Roo-Code)**, **Claude Code CLI**, and local project workspaces.
 
@@ -319,6 +322,15 @@ Security is paramount. MCPmg operates strictly locally, collects zero telemetry,
 
 ---
 
+## Creator & Developer
+
+Created and developed by **AJAYMYTH (Javali Ajayakumar)**.
+
+- GitHub: [@AJAYMYTH](https://github.com/AJAYMYTH)
+- Repository: [https://github.com/AJAYMYTH/MCPmg](https://github.com/AJAYMYTH/MCPmg)
+
+---
+
 ## License
 
-Distributed under the [MIT License](LICENSE). Copyright (c) 2026 MCPmg Contributors.
+Distributed under the [MIT License](LICENSE). Copyright (c) 2026 AJAYMYTH (Javali Ajayakumar).

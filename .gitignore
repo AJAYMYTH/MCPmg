@@ -49,3 +49,8 @@ desktop.ini
 # MCPmg Local User Data & Snapshots
 .mcpmg/
 backups/
+
+# Local Design Guidelines (Do Not Push)
+DESIGN.md
+design.md
+

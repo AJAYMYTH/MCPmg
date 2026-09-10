@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCPmg — Model Context Protocol Multi-Host Manager & Doctor</title>
+  <meta name="description" content="Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-repairing MCP servers across Claude Desktop, Cursor, Antigravity, and Cline. Created by AJAYMYTH (Javali Ajayakumar).">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-primary: #cc785c;
+      --color-primary-active: #a9583e;
+      --color-primary-disabled: #e6dfd8;
+      --color-ink: #141413;
+      --color-body: #3d3d3a;
+      --color-body-strong: #252523;
+      --color-muted: #6c6a64;
+      --color-muted-soft: #8e8b82;
+      --color-hairline: #e6dfd8;
+      --color-hairline-soft: #ebe6df;
+      --color-canvas: #faf9f5;
+      --color-surface-soft: #f5f0e8;
+      --color-surface-card: #efe9de;
+      --color-surface-cream-strong: #e8e0d2;
+      --color-surface-dark: #181715;
+      --color-surface-dark-elevated: #252320;
+      --color-surface-dark-soft: #1f1e1b;
+      --color-on-primary: #ffffff;
+      --color-on-dark: #faf9f5;
+      --color-on-dark-soft: #a09d96;
+      --color-accent-teal: #5db8a6;
+      --color-accent-amber: #e8a55a;
+      --color-success: #5db872;
+      --color-warning: #d4a017;
+      --color-error: #c64545;
+
+      --font-display: "Cormorant Garamond", "Tiempos Headline", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --rounded-xs: 4px;
+      --rounded-sm: 6px;
+      --rounded-md: 8px;
+      --rounded-lg: 12px;
+      --rounded-xl: 16px;
+      --rounded-pill: 9999px;
+
+      --spacing-xs: 8px;
+      --spacing-sm: 12px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-xxl: 48px;
+      --spacing-section: 96px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-canvas);
+      color: var(--color-body);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      height: 64px;
+      background-color: var(--color-canvas);
+      border-bottom: 1px solid var(--color-hairline-soft);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-ink);
+      letter-spacing: -0.5px;
+    }
+
+    .spike-mark {
+      width: 18px;
+      height: 18px;
+      fill: var(--color-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-surface-card);
+      color: var(--color-ink);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--rounded-pill);
+      border: 1px solid var(--color-hairline);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--rounded-md);
+      padding: 10px 18px;
+      height: 40px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.05s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-active);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      border: 1px solid var(--color-hairline);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-soft);
+    }
+
+    .btn-dark {
+      background-color: var(--color-surface-dark-elevated);
+      color: var(--color-on-dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-dark:hover {
+      background-color: #312e2a;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 80px 0 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-hairline);
+      padding: 5px 14px;
+      border-radius: var(--rounded-pill);
+      font-size: 13px;
+      color: var(--color-ink);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-success);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 58px;
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--color-ink);
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--color-body);
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .command-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--rounded-md);
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-ink);
+      gap: 10px;
+      cursor: pointer;
+      user-select: all;
+    }
+
+    .command-pill .copy-icon {
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    /* Terminal Window Mockup */
+    .terminal-card {
+      background-color: var(--color-surface-dark);
+      border-radius: var(--rounded-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-surface-dark-elevated);
+      box-shadow: 0 20px 40px -15px rgba(20, 20, 19, 0.15);
+    }
+
+    .terminal-header {
+      background-color: var(--color-surface-dark-elevated);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background-color: #ff5f56; }
+    .dot-yellow { background-color: #ffbd2e; }
+    .dot-green { background-color: #27c93f; }
+
+    .terminal-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .terminal-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-on-dark-soft);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: var(--rounded-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .terminal-tab-btn.active {
+      background-color: var(--color-surface-dark-soft);
+      color: var(--color-on-dark);
+    }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-on-dark);
+      min-height: 340px;
+      overflow-x: auto;
+    }
+
+    .ansi-cyan { color: #5db8a6; }
+    .ansi-coral { color: var(--color-primary); }
+    .ansi-green { color: var(--color-success); }
+    .ansi-yellow { color: var(--color-warning); }
+    .ansi-dim { color: var(--color-on-dark-soft); }
+    .ansi-bold { font-weight: bold; }
+
+    /* Host Grid Section */
+    .section-band {
+      padding: var(--spacing-section) 0;
+      border-top: 1px solid var(--color-hairline-soft);
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--color-ink);
+      margin-bottom: 14px;
+    }
+
+    .section-subheading {
+      font-size: 17px;
+      color: var(--color-muted);
+      max-width: 600px;
+    }
+
+    .hosts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .host-card {
+      background: var(--color-canvas);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--rounded-lg);
+      padding: 24px;
+      transition: border-color 0.15s ease;
+    }
+
+    .host-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .host-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .host-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .host-path {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-muted);
+      word-break: break-all;
+      background: var(--color-surface-soft);
+      padding: 6px 10px;
+      border-radius: var(--rounded-sm);
+      margin-top: 10px;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background-color: var(--color-surface-card);
+      border-radius: var(--rounded-lg);
+      padding: var(--spacing-xl);
+      border: 1px solid var(--color-hairline);
+    }
+
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--color-primary);
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-ink);
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--color-body);
+      line-height: 1.55;
+    }
+
+    /* CLI Reference Table */
+    .cli-box {
+      background-color: var(--color-canvas);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+
+    .cli-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 140px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-hairline-soft);
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .cli-row:last-child {
+      border-bottom: none;
+    }
+
+    .cli-row:nth-child(even) {
+      background-color: var(--color-surface-soft);
+    }
+
+    .cli-cmd {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--color-primary-active);
+    }
+
+    .cli-desc {
+      color: var(--color-body);
+    }
+
+    .cli-shortcut {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-muted);
+      text-align: right;
+    }
+
+    /* Installation Tabs */
+    .install-box {
+      background: var(--color-surface-dark);
+      border-radius: var(--rounded-xl);
+      padding: 36px;
+      color: var(--color-on-dark);
+    }
+
+    .install-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .install-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-on-dark-soft);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--rounded-md);
+      cursor: pointer;
+    }
+
+    .install-tab-btn.active {
+      background: var(--color-surface-dark-elevated);
+      color: var(--color-on-dark);
+    }
+
+    .install-panel {
+      display: none;
+    }
+
+    .install-panel.active {
+      display: block;
+    }
+
+    .install-code-wrap {
+      position: relative;
+      background: var(--color-surface-dark-soft);
+      border-radius: var(--rounded-md);
+      padding: 18px 20px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--color-accent-teal);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .copy-btn {
+      background: var(--color-surface-dark-elevated);
+      color: var(--color-on-dark);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--rounded-sm);
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background: #383530;
+    }
+
+    /* Callout Band Coral */
+    .callout-coral {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      border-radius: var(--rounded-lg);
+      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 60px 0;
+    }
+
+    .callout-coral h3 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .callout-coral p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .btn-cream {
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    .btn-cream:hover {
+      background-color: var(--color-surface-card);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--color-surface-dark);
+      color: var(--color-on-dark-soft);
+      padding: 64px 0 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--color-on-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 320px;
+      margin-bottom: 20px;
+    }
+
+    .creator-badge {
+      background: var(--color-surface-dark-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--rounded-md);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--color-on-dark);
+    }
+
+    .creator-badge strong {
+      color: var(--color-primary);
+    }
+
+    .footer-col-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-on-dark);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-on-dark);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hosts-grid, .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .callout-coral {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+      .cli-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .cli-shortcut {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav -->
+  <nav class="top-nav">
+    <div class="container nav-inner">
+      <div class="brand-cluster">
+        <!-- Anthropic 4-spoke radial spike mark -->
+        <svg class="spike-mark" viewBox="0 0 24 24">
+          <path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z" />
+        </svg>
+        <span>MCPmg</span>
+        <span class="badge-tag">v1.0.1</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#hosts" class="nav-link">Hosts</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#cli" class="nav-link">Commands</a>
+        <a href="#installation" class="nav-link">Installation</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="https://github.com/AJAYMYTH/MCPmg" target="_blank" class="btn btn-secondary">
+          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#installation" class="btn btn-primary">Install Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="overview">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span>Open Source MCP Tooling</span>
+          <span style="color: var(--color-muted);">•</span>
+          <span>Zero Telemetry</span>
+        </div>
+        <h1 class="hero-title">
+          Unified control for <em>Model Context Protocol</em>
+        </h1>
+        <p class="hero-subtitle">
+          The cross-platform CLI & full-screen interactive TUI for monitoring, diagnosing, and auto-repairing MCP servers across all your AI desktop clients.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#installation" class="btn btn-primary">Get Started</a>
+          <a href="#cli" class="btn btn-secondary">Explore CLI Reference</a>
+          <div class="command-pill" onclick="copySnippet('npx @ajay.j_dev/mcpmg')">
+            <span>npx @ajay.j_dev/mcpmg</span>
+            <span class="copy-icon">📋</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Terminal Card Mockup -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <div class="terminal-dot dot-red"></div>
+            <div class="terminal-dot dot-yellow"></div>
+            <div class="terminal-dot dot-green"></div>
+          </div>
+          <div class="terminal-tabs">
+            <button class="terminal-tab-btn active" onclick="switchTerminalTab('list')">mcpmg list</button>
+            <button class="terminal-tab-btn" onclick="switchTerminalTab('monitor')">mcpmg monitor</button>
+            <button class="terminal-tab-btn" onclick="switchTerminalTab('doctor')">mcpmg doctor</button>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminal-content">
+          <!-- Terminal Content Rendered via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supported AI Hosts -->
+  <section class="section-band" id="hosts">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Multi-Host Discovery</div>
+        <h2 class="section-heading">Works with every AI environment you use</h2>
+        <p class="section-subheading">Automatic discovery parses host configurations without touching your existing custom settings.</p>
+      </div>
+
+      <div class="hosts-grid">
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">Claude Desktop</span>
+            <span class="badge-tag">macOS / Win</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Official Anthropic desktop client configuration.</p>
+          <div class="host-path">%APPDATA%\Claude\claude_desktop_config.json</div>
+        </div>
+
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">Antigravity / Gemini</span>
+            <span class="badge-tag">Cross-Platform</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Google Antigravity & Gemini Code Assist settings.</p>
+          <div class="host-path">~/.gemini/antigravity/mcp_config.json</div>
+        </div>
+
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">Cursor AI</span>
+            <span class="badge-tag">Cross-Platform</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Cursor IDE global Model Context Protocol registry.</p>
+          <div class="host-path">~/.cursor/mcp.json</div>
+        </div>
+
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">VS Code (Cline / Roo)</span>
+            <span class="badge-tag">Extension</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Autonomous coding agent global storage.</p>
+          <div class="host-path">%APPDATA%\Code\User\...\cline_mcp_settings.json</div>
+        </div>
+
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">Claude Code CLI</span>
+            <span class="badge-tag">CLI Native</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Terminal-based Claude agent global tool config.</p>
+          <div class="host-path">~/.claude.json</div>
+        </div>
+
+        <div class="host-card">
+          <div class="host-card-header">
+            <span class="host-title">Local Workspace</span>
+            <span class="badge-tag">Repository</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-muted);">Project-scoped shared server definitions.</p>
+          <div class="host-path">./.mcp.json</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Capabilities -->
+  <section class="section-band" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Built for Production</div>
+        <h2 class="section-heading">Engineered with speed, safety, and precision</h2>
+        <p class="section-subheading">From dual-pane animated TUI to one-click repair wizards, everything you need to keep your MCP mesh healthy.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3 class="feature-title">Full-Screen TUI</h3>
+          <p class="feature-desc">Dual-pane dashboard with real-time health polling, smooth animation frames, and zero-flicker alternate screen buffers (<code>mcpmg tui</code>).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🩺</div>
+          <h3 class="feature-title">Diagnostic Doctor</h3>
+          <p class="feature-desc">Audits missing environment tokens, expired API keys, Windows <code>npx</code> vs <code>npx.cmd</code> paths, and JSON schema syntax errors (<code>mcpmg doctor</code>).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📐</div>
+          <h3 class="feature-title">Responsive Tables</h3>
+          <p class="feature-desc">Mathematically boundary-enforced CLI tables that never overflow or wrap, optimized for 80-column and split-window terminals.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title">Interactive Auto-Fixer</h3>
+          <p class="feature-desc">Guided repair wizard prompts for missing credentials, resolves executable extensions, and verifies connection before applying changes (<code>mcpmg fix</code>).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3 class="feature-title">Automatic Snapshots</h3>
+          <p class="feature-desc">Timestamped backups are created in <code>~/.mcpmg/backups/</code> prior to any file mutation, with instant rollback support (<code>mcpmg backup restore</code>).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Native Binaries</h3>
+          <p class="feature-desc">Self-contained native executables for Windows (<code>.exe</code>), macOS (<code>arm64</code>), and Linux (<code>x64</code>) with zero external Node.js dependencies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLI Reference -->
+  <section class="section-band" id="cli">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Command Line Interface</div>
+        <h2 class="section-heading">Intuitive command palette</h2>
+        <p class="section-subheading">Run individual commands directly or pass flags to automate scripting pipelines.</p>
+      </div>
+
+      <div class="cli-box">
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg tui</span>
+          <span class="cli-desc">Launch full-screen interactive dual-pane TermUI dashboard</span>
+          <span class="cli-shortcut">ui, dashboard</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg list</span>
+          <span class="cli-desc">List all detected MCP servers across all hosts in a responsive table</span>
+          <span class="cli-shortcut">ls</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg monitor</span>
+          <span class="cli-desc">Launch real-time live health monitor with auto-polling & keyboard navigation</span>
+          <span class="cli-shortcut">watch</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg doctor [name]</span>
+          <span class="cli-desc">Run deep diagnostic audit for auth tokens, paths, and connectivity</span>
+          <span class="cli-shortcut">doctor</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg fix [name]</span>
+          <span class="cli-desc">Interactively repair diagnosed errors with guided prompts and safe backup</span>
+          <span class="cli-shortcut">fix</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg test [name]</span>
+          <span class="cli-desc">Probe server latency, inspect capabilities, and list exposed tools</span>
+          <span class="cli-shortcut">ping</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg add [name]</span>
+          <span class="cli-desc">Add a new MCP server via interactive wizard or catalog presets</span>
+          <span class="cli-shortcut">add</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg sync [name]</span>
+          <span class="cli-desc">Sync or clone an MCP server configuration between AI hosts</span>
+          <span class="cli-shortcut">sync</span>
+        </div>
+        <div class="cli-row">
+          <span class="cli-cmd">mcpmg backup [action]</span>
+          <span class="cli-desc">Manage configuration snapshots (actions: list, restore)</span>
+          <span class="cli-shortcut">backup</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation -->
+  <section class="section-band" id="installation">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Deployment</div>
+        <h2 class="section-heading">Install MCPmg on your machine</h2>
+        <p class="section-subheading">Choose your preferred package manager or installer.</p>
+      </div>
+
+      <div class="install-box">
+        <div class="install-tabs">
+          <button class="install-tab-btn active" onclick="switchInstallTab('winget')">Windows (Winget)</button>
+          <button class="install-tab-btn" onclick="switchInstallTab('powershell')">Windows (PowerShell)</button>
+          <button class="install-tab-btn" onclick="switchInstallTab('curl')">macOS & Linux</button>
+          <button class="install-tab-btn" onclick="switchInstallTab('npm')">npm Package</button>
+        </div>
+
+        <div id="panel-winget" class="install-panel active">
+          <p style="margin-bottom: 12px; color: var(--color-on-dark-soft); font-size: 14px;">Install via the official Windows Package Manager:</p>
+          <div class="install-code-wrap">
+            <code>winget install AJAYMYTH.MCPmg</code>
+            <button class="copy-btn" onclick="copySnippet('winget install AJAYMYTH.MCPmg')">Copy</button>
+          </div>
+        </div>
+
+        <div id="panel-powershell" class="install-panel">
+          <p style="margin-bottom: 12px; color: var(--color-on-dark-soft); font-size: 14px;">Download standalone mcpmg.exe and configure PATH automatically:</p>
+          <div class="install-code-wrap">
+            <code>irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex</code>
+            <button class="copy-btn" onclick="copySnippet('irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex')">Copy</button>
+          </div>
+        </div>
+
+        <div id="panel-curl" class="install-panel">
+          <p style="margin-bottom: 12px; color: var(--color-on-dark-soft); font-size: 14px;">One-liner installer with automatic CPU architecture detection:</p>
+          <div class="install-code-wrap">
+            <code>curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash</code>
+            <button class="copy-btn" onclick="copySnippet('curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash')">Copy</button>
+          </div>
+        </div>
+
+        <div id="panel-npm" class="install-panel">
+          <p style="margin-bottom: 12px; color: var(--color-on-dark-soft); font-size: 14px;">Install globally or run immediately with npx:</p>
+          <div class="install-code-wrap">
+            <code>npm install -g @ajay.j_dev/mcpmg</code>
+            <button class="copy-btn" onclick="copySnippet('npm install -g @ajay.j_dev/mcpmg')">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pre-footer Coral Callout -->
+      <div class="callout-coral">
+        <div>
+          <h3>Take control of your MCP ecosystem</h3>
+          <p>Inspect servers, verify tools, and resolve configuration errors in seconds.</p>
+        </div>
+        <a href="https://github.com/AJAYMYTH/MCPmg" target="_blank" class="btn btn-cream">Star on GitHub ⭐</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <svg class="spike-mark" style="fill: var(--color-on-dark);" viewBox="0 0 24 24">
+              <path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z" />
+            </svg>
+            <span>MCPmg</span>
+          </div>
+          <p class="footer-desc">
+            Model Context Protocol Multi-Host Manager & Health Monitor. Open source under the MIT License.
+          </p>
+          <div class="creator-badge">
+            Created & Developed by <strong>AJAYMYTH (Javali Ajayakumar)</strong>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Documentation</div>
+          <ul class="footer-links">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#hosts">Supported Hosts</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#cli">CLI Commands</a></li>
+            <li><a href="#installation">Installation</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Releases & Binaries</div>
+          <ul class="footer-links">
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/latest" target="_blank">Latest Release (v1.0.1)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg.exe" target="_blank">Windows .exe (x64)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-macos-arm64.tar.gz" target="_blank">macOS (arm64)</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/releases/download/v1.0.1/mcpmg-linux-x64.tar.gz" target="_blank">Linux (x64)</a></li>
+            <li><a href="https://www.npmjs.com/package/@ajay.j_dev/mcpmg" target="_blank">npm Registry</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Community & Code</div>
+          <ul class="footer-links">
+            <li><a href="https://github.com/AJAYMYTH/MCPmg" target="_blank">GitHub Repository</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/issues" target="_blank">Issue Tracker</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CHANGELOG.md" target="_blank">Changelog</a></li>
+            <li><a href="https://github.com/AJAYMYTH/MCPmg/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+            <li><a href="https://github.com/AJAYMYTH" target="_blank">Author Profile</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Copyright &copy; 2026 AJAYMYTH (Javali Ajayakumar). Distributed under MIT License.</div>
+        <div>Designed inspired by Anthropic Claude design system.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const terminalDemos = {
+      list: `  <span class="ansi-coral ansi-bold">███╗   ███╗ ██████╗██████╗ ███╗   ███╗ ██████╗</span>
+  <span class="ansi-coral ansi-bold">████╗ ████║██╔════╝██╔══██╗████╗ ████║██╔════╝</span>
+  <span class="ansi-coral ansi-bold">██╔████╔██║██║     ██████╔╝██╔████╔██║██║  ███╗</span>
+  <span class="ansi-coral ansi-bold">██║╚██╔╝██║██║     ██╔═══╝ ██║╚██╔╝██║██║   ██║</span>
+  <span class="ansi-coral ansi-bold">██║ ╚═╝ ██║╚██████╗██║     ██║ ╚═╝ ██║╚██████╔╝</span>
+
+  <span class="ansi-dim">Model Context Protocol Multi-Host Manager & Health Monitor</span>
+  ────────────────────────────────────────────────────────────
+
+  <span class="ansi-cyan">Detected AI Hosts:</span>
+  <span class="ansi-green">●</span> Found Claude Desktop
+  <span class="ansi-green">●</span> Found Antigravity / Gemini
+  <span class="ansi-green">●</span> Found Cursor
+  <span class="ansi-green">●</span> Found Claude Code CLI
+
+  ┌────────────────────┬────────────────┬────────┬────────────────────┬────────┐
+  │ Server             │ Host           │ Type   │ Target             │ Status │
+  ├────────────────────┼────────────────┼────────┼────────────────────┼────────┤
+  │ taskair            │ Claude Desktop │ STDIO  │ npx.cmd -y taskai… │ <span class="ansi-green">● On</span>   │
+  │ supabase           │ Antigravity    │ SSE    │ https://mcp.supab… │ <span class="ansi-green">● On</span>   │
+  │ codebase-memory-m… │ Antigravity    │ STDIO  │ uvx codebase-memo… │ <span class="ansi-green">● On</span>   │
+  │ codebase-memory-m… │ Cursor         │ STDIO  │ uvx codebase-memo… │ <span class="ansi-green">● On</span>   │
+  └────────────────────┴────────────────┴────────┴────────────────────┴────────┘
+
+  <span class="ansi-dim">Total servers: 4 │ Test: "mcpmg test &lt;name&gt;" │ Diagnose: "mcpmg doctor &lt;name&gt;"</span>`,
+
+      monitor: `  <span class="ansi-coral ansi-bold">MCP LIVE HEALTH MONITOR</span>  <span class="ansi-dim">[Press ↑/↓ to select, Space to probe, 'd' to diagnose, Esc to exit]</span>
+  ──────────────────────────────────────────────────────────────────────────
+
+  <span class="ansi-cyan">&gt; [1] taskair</span>            Host: Claude Desktop       Type: STDIO   Status: <span class="ansi-green">HEALTHY (24ms)</span>
+    [2] supabase           Host: Antigravity          Type: SSE     Status: <span class="ansi-green">CONNECTED</span>
+    [3] codebase-memory    Host: Cursor               Type: STDIO   Status: <span class="ansi-green">HEALTHY (18ms)</span>
+
+  ──────────────────────────────────────────────────────────────────────────
+  <span class="ansi-dim">Selected:</span> <span class="ansi-bold">taskair</span>
+  <span class="ansi-dim">Command:</span>  npx.cmd -y taskair
+  <span class="ansi-dim">Tools:</span>    list_tasks, add_task, complete_task, get_task_stats (4 tools active)
+  <span class="ansi-green">✓ Stdio protocol handshake succeeded</span>
+  <span class="ansi-dim">Auto-polling every 3s... [Press Esc or 'q' to return to CLI]</span>`,
+
+      doctor: `  <span class="ansi-coral ansi-bold">🩺 MCPmg Diagnostic Doctor — Running Comprehensive Audit...</span>
+
+  [1/4] Inspecting host configurations...
+        <span class="ansi-green">✓ Claude Desktop configuration: Valid JSON schema (1 server)</span>
+        <span class="ansi-green">✓ Antigravity configuration: Valid JSON schema (2 servers)</span>
+        <span class="ansi-green">✓ Cursor configuration: Valid JSON schema (1 server)</span>
+
+  [2/4] Verifying execution commands & binary paths...
+        <span class="ansi-green">✓ Windows executable extension check passed ('npx.cmd' resolved)</span>
+        <span class="ansi-green">✓ UV Python environment verified for 'uvx'</span>
+
+  [3/4] Validating environment variables & auth credentials...
+        <span class="ansi-green">✓ taskair: No required environment variables missing</span>
+        <span class="ansi-green">✓ supabase: Endpoint URL is reachable (HTTP 200 OK)</span>
+
+  [4/4] Capability & tool schema verification...
+        <span class="ansi-green">✓ 4 servers checked — 0 errors, 0 warnings found!</span>
+
+  <span class="ansi-green ansi-bold">✨ All MCP servers are operating nominally!</span>`
+    };
+
+    function switchTerminalTab(tab) {
+      document.querySelectorAll('.terminal-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('terminal-content').innerHTML = terminalDemos[tab] || '';
+    }
+
+    function switchInstallTab(tab) {
+      document.querySelectorAll('.install-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.install-panel').forEach(panel => panel.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    function copySnippet(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard: ' + text);
+      }).catch(() => {
+        prompt('Copy command:', text);
+      });
+    }
+
+    // Initialize with 'list' tab
+    document.getElementById('terminal-content').innerHTML = terminalDemos.list;
+  </script>
+</body>
+</html>
