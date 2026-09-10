@@ -4,7 +4,7 @@
   "description": "Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-fixing Model Context Protocol (MCP) servers across all AI hosts.",
   "type": "module",
   "bin": {
-    "mcpmg": "./dist/cli.js"
+    "mcpmg": "dist/cli.js"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
     "manager",
     "devtools"
   ],
-  "author": "",
+  "author": "AJAYMYTH",
   "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.9.1",
