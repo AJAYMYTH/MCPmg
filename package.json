@@ -15,7 +15,11 @@
   },
   "homepage": "https://github.com/AJAYMYTH/MCPmg#readme",
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.map",
+    "!dist/bin/**",
+    "!dist/sea-prep.blob",
     "README.md",
     "LICENSE"
   ],

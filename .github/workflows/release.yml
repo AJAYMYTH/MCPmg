@@ -137,6 +137,7 @@ jobs:
 
       - name: Publish to npm (using NPM_TOKEN)
         if: env.NODE_AUTH_TOKEN != ''
+        continue-on-error: true
         run: npm publish --access public
 
   winget:
