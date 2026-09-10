@@ -13,12 +13,15 @@ import { syncCommand } from './commands/sync.js';
 import { backupCommand } from './commands/backup.js';
 import { startTui } from './ui/tui/index.js';
 
+declare const __VERSION__: string | undefined;
+const CLI_VERSION = typeof __VERSION__ !== 'undefined' ? __VERSION__ : '1.0.1';
+
 const program = new Command();
 
 program
   .name('mcpmg')
   .description('Global CLI tool for monitoring, managing, diagnosing, and auto-repairing MCP servers across all AI hosts')
-  .version('1.0.0');
+  .version(CLI_VERSION);
 
 // 0. TUI Interactive Mode (TermUI + Ink)
 program

@@ -1,6 +1,6 @@
 {
   "name": "@ajay.j_dev/mcpmg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-fixing Model Context Protocol (MCP) servers across all AI hosts.",
   "type": "module",
   "bin": {
@@ -24,6 +24,8 @@
   },
   "scripts": {
     "build": "tsc",
+    "bundle": "node scripts/bundle.js",
+    "build:bin": "npm run build && npm run bundle && node scripts/build-binary.js",
     "watch": "tsc -w",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/run-tests.js",
@@ -61,6 +63,8 @@
   "devDependencies": {
     "@types/node": "^22.13.9",
     "@types/react": "^18.3.31",
+    "esbuild": "^0.28.2",
+    "postject": "^1.0.0-alpha.6",
     "typescript": "^5.8.2"
   }
 }

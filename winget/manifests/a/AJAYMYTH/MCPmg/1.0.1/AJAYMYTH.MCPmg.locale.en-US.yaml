@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+PackageIdentifier: AJAYMYTH.MCPmg
+PackageVersion: 1.0.1
+PackageLocale: en-US
+Publisher: AJAYMYTH
+PublisherUrl: https://github.com/AJAYMYTH
+PublisherSupportUrl: https://github.com/AJAYMYTH/MCPmg/issues
+PackageName: MCPmg
+PackageUrl: https://github.com/AJAYMYTH/MCPmg
+License: MIT
+LicenseUrl: https://github.com/AJAYMYTH/MCPmg/blob/main/LICENSE
+Copyright: Copyright (c) 2026 AJAYMYTH
+ShortDescription: Unified CLI & TUI tool for monitoring, managing, diagnosing, and auto-fixing MCP servers across all AI hosts.
+Description: |-
+  MCPmg is a unified command-line and terminal UI manager for Model Context Protocol (MCP) servers.
+  It automatically detects configurations across Claude Desktop, Antigravity/Gemini, Cursor, Cline,
+  and Claude Code CLI, providing live monitoring, connection diagnostics, and automated repairs.
+Moniker: mcpmg
+Tags:
+  - mcp
+  - model-context-protocol
+  - ai
+  - claude
+  - cursor
+  - antigravity
+  - devtools
+  - tui
+  - cli
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0

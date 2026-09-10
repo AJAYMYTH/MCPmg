@@ -10,8 +10,74 @@ permissions:
   packages: write
 
 jobs:
-  build-and-release:
-    name: Build and Create Release
+  build-binaries:
+    name: Build Binary (${{ matrix.platform }}-${{ matrix.arch }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+            arch: x64
+            bin_name: mcpmg.exe
+            archive_name: mcpmg-windows-x64.zip
+          - os: macos-latest
+            platform: macos
+            arch: arm64
+            bin_name: mcpmg
+            archive_name: mcpmg-macos-arm64.tar.gz
+          - os: macos-13
+            platform: macos
+            arch: x64
+            bin_name: mcpmg
+            archive_name: mcpmg-macos-x64.tar.gz
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            bin_name: mcpmg
+            archive_name: mcpmg-linux-x64.tar.gz
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Compile TypeScript & SEA Standalone Binary
+        run: npm run build:bin
+
+      - name: Package Windows Executable (.zip & .exe)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          mkdir -p artifacts
+          Copy-Item dist/bin/mcpmg.exe -Destination artifacts/mcpmg.exe
+          Compress-Archive -Path dist/bin/mcpmg.exe -DestinationPath "artifacts/${{ matrix.archive_name }}"
+
+      - name: Package Unix Binary (.tar.gz)
+        if: matrix.platform != 'windows'
+        run: |
+          mkdir -p artifacts
+          tar -czvf "artifacts/${{ matrix.archive_name }}" -C dist/bin mcpmg
+
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.platform }}-${{ matrix.arch }}
+          path: artifacts/*
+          retention-days: 1
+
+  release:
+    name: Publish Release & npm Package
+    needs: build-binaries
     runs-on: ubuntu-latest
 
     steps:
@@ -42,18 +108,51 @@ jobs:
       - name: Pack Distribution Tarball
         run: npm pack
 
+      - name: Download All Built Binaries
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          pattern: binary-*
+          merge-multiple: true
+
+      - name: Copy Install Scripts to Release Assets
+        run: |
+          cp install.ps1 release-assets/install.ps1
+          cp install.sh release-assets/install.sh
+
+      - name: Generate Checksums (SHA256SUMS.txt)
+        run: |
+          cd release-assets
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: mcpmg-*.tgz
+          files: |
+            release-assets/*
+            *.tgz
           generate_release_notes: true
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to npm (if NPM_TOKEN is configured)
+      - name: Publish to npm (using NPM_TOKEN)
         if: env.NODE_AUTH_TOKEN != ''
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  winget:
+    name: Publish to Winget Community Repo
+    needs: release
+    runs-on: windows-latest
+    if: ${{ always() && secrets.WINGET_TOKEN != '' }}
+
+    steps:
+      - name: Submit Package to Windows Package Manager (Winget)
+        uses: vedantmgoyal9/winget-releaser@v2
+        with:
+          identifier: AJAYMYTH.MCPmg
+          token: ${{ secrets.WINGET_TOKEN }}

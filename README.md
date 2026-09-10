@@ -58,31 +58,56 @@ Built with **TypeScript**, **Node.js**, **TermUI**, **Ink**, and the official **
 
 ## Installation
 
-### Prerequisites
-- Node.js `v18.0.0` or higher
-- npm `v9.0.0` or higher
+Choose the installation method best suited for your operating system:
 
-### Install via npm
+### 1. Windows Package Manager (Winget)
+```powershell
+winget install AJAYMYTH.MCPmg
+```
+
+### 2. Windows PowerShell (One-Liner)
+Installs the standalone `mcpmg.exe` executable and configures your user PATH automatically:
+```powershell
+irm https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.ps1 | iex
+```
+
+### 3. macOS & Linux (One-Liner)
+Automatically detects OS (`darwin` / `linux`) and architecture (`arm64` / `x64`):
+```bash
+curl -fsSL https://raw.githubusercontent.com/AJAYMYTH/MCPmg/main/install.sh | bash
+```
+
+### 4. Global npm Package
 ```bash
 npm install -g @ajay.j_dev/mcpmg
 
-# Or run instantly without global install
+# Or run instantly without installing:
 npx @ajay.j_dev/mcpmg
 ```
 
-### Install from Source
+### 5. Direct Binary Downloads
+Download pre-compiled, self-contained standalone executables (zero dependencies required) directly from [GitHub Releases](https://github.com/AJAYMYTH/MCPmg/releases):
+
+| Platform | Architecture | Binary Package |
+|---|---|---|
+| **Windows** | x64 | [`mcpmg.exe`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg.exe) / [`mcpmg-windows-x64.zip`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-windows-x64.zip) |
+| **macOS** | Apple Silicon (M-series / arm64) | [`mcpmg-macos-arm64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-macos-arm64.tar.gz) |
+| **macOS** | Intel (x64) | [`mcpmg-macos-x64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-macos-x64.tar.gz) |
+| **Linux** | x64 | [`mcpmg-linux-x64.tar.gz`](https://github.com/AJAYMYTH/MCPmg/releases/latest/download/mcpmg-linux-x64.tar.gz) |
+
+### 6. Build from Source
 ```bash
 git clone https://github.com/AJAYMYTH/MCPmg.git
-cd mcpmg
+cd MCPmg
 npm install
-npm run build
+npm run build:bin
 npm link
 ```
 
-Verify installation:
+Verify your installation:
 ```bash
 mcpmg --version
-# Output: 1.0.0
+# Output: 1.0.1
 ```
 
 ---
